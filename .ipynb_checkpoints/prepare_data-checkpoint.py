@@ -2,12 +2,12 @@ import pandas as pd
 import datetime as dt
 tickers = "GOOGL"
 file_path = "data/{}_stock_price_data.csv".format(tickers)
-def wrangle_data(file_path, tickers: str):
+def prepare_data(file_path, tickers: str):
     
     t0 = dt.datetime.now()
     data = pd.read_csv(file_path)
     data["returns"] = data['Adj Close'].pct_change()*100
-    data.rename(columns={'Adj Close':'price','Datetime':'date'}, inplace=True)
+    data.rename(columns={'Adj Close':'price','Date':'date'}, inplace=True)
     data = data[['date', 'price', 'returns']]
     data = data.dropna(axis=0)
     save_path = "data/{}_returns_data.csv".format(tickers)
